@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikacja_webowa_bdot</title>
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+</head>
+<body>
+    <h1>Aplikacja webowa</h1>
+    <div id = "mapa" style = "width:1200px; height:600px;"></div> 
+<script>
+
+var BUBD_A =L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+        layers: "aplikacja_webowa:BUBD_A",
+        format: 'image/png',
+        transparent: true
+    });
+    
+    var PTLZ_A =L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+        layers: "aplikacja_webowa:PTLZ_A",
+        format: 'image/png',
+        transparent: true
+    });
+
+    var PTTR_A =L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+        layers: "aplikacja_webowa:PTTR_A",
+        format: 'image/png',
+        transparent: true
+    });
+
+    var SKJZ_L =L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+        layers: "aplikacja_webowa:SKJZ_L",
+        format: 'image/png',
+        transparent: true
+    });
+
+    var SWRS_L =L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+        layers: "aplikacja_webowa:SWRS_L",
+        format: 'image/png',
+        transparent: true
+    });
+
+    var map = L.map('mapa', {
+        center: [54.35088375736358, 18.64299193121274],
+        zoom: 12,
+        layers: [BUBD_A,SWRS_L,SKJZ_L,PTLZ_A,PTTR_A]
+    });
+   
+    var layers = {
+        "Budynki": BUBD_A,
+        "Lasy i tereny liściaste": PTLZ_A,
+        "Roslinność trawiasta": PTTR_A,
+        "Jezdnie": SKJZ_L,
+        "Rzeki i strumienie": SWRS_L,
+    };
+    
+    var layerControl = L.control.layers(null,layers).addTo(map);
+    L.control.scale().addTo(map);
+
+</script>
+</body>
+</html>
